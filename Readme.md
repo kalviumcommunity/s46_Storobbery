@@ -8,3 +8,7 @@ This is a website which has as stories of robbery incidents and users can read i
 
 1.dark mode
 2.Font size can be adjusted.
+
+# deployed link
+
+https://storoberry.onrender.com/ping
