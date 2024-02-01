@@ -1,0 +1,17 @@
+{
+  "name": "s46_storobbery",
+  "version": "1.0.0",
+  "description": "This is a website which has as stories of robbery incidents and users can read it for free",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
