@@ -7,7 +7,7 @@ This is a website which has as stories of robbery incidents and users can read i
 ## features
 
 1.dark mode
-2.Font size can be adjusted.
+2.Font size can be adjusted
 
 
 ## Deployed link
