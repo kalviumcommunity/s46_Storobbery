@@ -4,12 +4,15 @@
   "description": "This is a website which has as stories of robbery incidents and users can read it for free",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon Back-End/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
