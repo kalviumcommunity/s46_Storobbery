@@ -16,7 +16,7 @@ const startDatabase = async () => {
     return mongoose.connection.readyState === 1;
   }
   
-app.get('/  /', (req, res) => {
+app.get('/', (req, res) => {
     res.json({message: 'MongoDB',
     database: isConnected() ? 'connected' : 'disconnected'});
   });
