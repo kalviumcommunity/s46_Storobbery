@@ -24,8 +24,7 @@ const isConnected = () => {
 
 const checkDatabaseConnection = (req, res, next) => {
   if (!isConnected()) {
-    return res.status(500).json({ message: 'Database is not connected' });
-  }
+    return res.status(500).json({ message: 'Database is not connected' })
   next();
 };
 
@@ -37,3 +36,8 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
  
+app.get('/', (req, res) => {
+    res.json({message: 'MongoDB',
+    database: isConnected() ? 'connected' : 'disconnected'});
+  });
+
