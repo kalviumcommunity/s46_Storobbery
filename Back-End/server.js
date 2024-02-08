@@ -1,25 +1,39 @@
-const express = require('express')
-const  mongoose  = require('mongoose')
-require('dotenv').config()
-var app = express()
-const startDatabase = async () => {
+const express = require('express');
+const router = require('./route');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-  try{
-    mongoose.connect(process.env.mongoURI,{useNewUrlParser: true, useUnifiedTopology: true })
+const app = express();
+const port = process.env.PORT || 3000;
+
+const startDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err);
+    process.exit(1);
   }
-  catch{
-    console.log(err)
+};
+
+startDatabase();
+
+const isConnected = () => {
+  return mongoose.connection.readyState === 1;
+};
+
+const checkDatabaseConnection = (req, res, next) => {
+  if (!isConnected()) {
+    return res.status(500).json({ message: 'Database is not connected' });
   }
-  }
-  startDatabase()
-  const isConnected = () => {
-    return mongoose.connection.readyState === 1;
-  }
-  
-app.get('/', (req, res) => {
-    res.json({message: 'MongoDB',
-    database: isConnected() ? 'connected' : 'disconnected'});
-  });
-app.listen(3000,()=>{
-  console.log("running on port 3000")
-})
+  next();
+};
+
+app.use(express.json());
+app.use(checkDatabaseConnection);
+app.use('/', router);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+ 
