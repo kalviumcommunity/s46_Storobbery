@@ -3,9 +3,11 @@ const  mongoose  = require('mongoose')
 const router = express.Router()
 require('dotenv').config()
 const {User,Data} =require('./model')
-// app.use(express.json())b 
+// app.use(express.json())
 
 //get user
+
+
 router.get('/read',async (req,res)=>{
     try{
         const users = await User.find()

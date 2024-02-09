@@ -1,17 +1,17 @@
-const express = require('express');
-const router = require('./route');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const express = require("express");
+const router = require("./route");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 5000;
 
 const startDatabase = async () => {
   try {
     await mongoose.connect(process.env.mongoURI);
-    console.log('Connected to MongoDB');
+    console.log("Connected to MongoDB");
   } catch (err) {
-    console.error('Error connecting to MongoDB:', err);
+    console.error("Error connecting to MongoDB:", err);
     process.exit(1);
   }
 };
@@ -24,20 +24,21 @@ const isConnected = () => {
 
 const checkDatabaseConnection = (req, res, next) => {
   if (!isConnected()) {
-    return res.status(500).json({ message: 'Database is not connected' })
-  next();
+    return res.status(500).json({ message: "Database is not connected" });
+    next();
+  }
 };
 
 app.use(express.json());
-app.use(checkDatabaseConnection);
-app.use('/', router);
+// app.use(checkDatabaseConnection);
+app.use("/", router);
+
+app.get("/", (req, res) => {
+  // res.json({message: 'MongoDB',
+  // database: isConnected() ? 'connected' : 'disconnected'});
+  res.json({ hello: "hello" });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
- 
-app.get('/', (req, res) => {
-    res.json({message: 'MongoDB',
-    database: isConnected() ? 'connected' : 'disconnected'});
-  });
-}
