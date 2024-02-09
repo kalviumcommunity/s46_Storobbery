@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = 4000;
+const port = process.env.port;
 
 const startDatabase = async () => {
   try {
