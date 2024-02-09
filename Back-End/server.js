@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 const startDatabase = async () => {
   try {
-    await mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.mongoURI);
     console.log('Connected to MongoDB');
   } catch (err) {
     console.error('Error connecting to MongoDB:', err);
@@ -40,4 +40,4 @@ app.get('/', (req, res) => {
     res.json({message: 'MongoDB',
     database: isConnected() ? 'connected' : 'disconnected'});
   });
-
+}
