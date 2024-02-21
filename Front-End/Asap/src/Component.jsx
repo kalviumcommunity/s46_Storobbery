@@ -5,7 +5,7 @@ function Component() {
   const [incidents, setIncidents] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/incidents')
+    fetch('https://storoberry.onrender.com/api/incidents')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -29,7 +29,7 @@ function Component() {
           <div>descriptions about the robbery<br/>{incident.suspectInformation.descriptions.map((i,idx)=>(
             <p key={idx}>{i}</p>
           ))}</div>
-          <p>Precense of Camera footage: {incident.securityCameraFootage.toString()}</p>
+          {/* <p>Precense of Camera footage: {incident.securityCameraFootage.toString()}</p> */}
           <br></br>
         </div>
       ))}
