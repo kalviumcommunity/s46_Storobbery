@@ -1,14 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function Component() {
+  const [incidents, setIncidents] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/incidents')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => setIncidents(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
   return (
-    <div>
-    <h1>Bank Details</h1>
-    <h2>Bank Name: <span><h3>Mel Bhuvanagiri Bank of India</h3></span></h2>
-    <h2>Branch Location: <span><h3>Kil Bhuvanighiri</h3></span></h2>
-    <h2>Contact-Info<span><h3>1400-45255453</h3></span></h2>
+    <div id='component-main'>
+      <h1>Incidents</h1>
+      {incidents.map((incident, index) => (
+        <div key={index} className="incident">
+          <p>Incident ID: {incident.incidentID}</p>
+          <p>Date Time: {incident.dateTime}</p>
+          <p>Location: {incident.location.city}, {incident.location.state}</p>
+          <p>Description: {incident.description}</p>
+          <p>AmountStolen: {incident.amountStolen}</p>
+          <div>descriptions about the robbery<br/>{incident.suspectInformation.descriptions.map((i,idx)=>(
+            <p key={idx}>{i}</p>
+          ))}</div>
+          <p>Precense of Camera footage: {incident.securityCameraFootage.toString()}</p>
+          <br></br>
+        </div>
+      ))}
     </div>
-  )
+  ); 
 }
 
-export default Component
+export default Component;
