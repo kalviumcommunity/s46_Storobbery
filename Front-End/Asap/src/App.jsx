@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Component from './Component'
 function App() {
@@ -8,16 +6,7 @@ function App() {
 
   return (
     <>
-    <div id='top'>
-
-
-    <div id='main'>
-
-    <Component></Component>
-    </div>
-
-    </div>
-      
+     <Component />   
     </>
   )
 }

@@ -1,7 +1,5 @@
 body{
-  background-image: url('./assets/bg-2.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+ background-color: #24a145;
 }
 
 #main{
@@ -20,4 +18,7 @@ body{
   justify-content: center;
   align-items: center;
   height: 95vh;
+}
+#component-main{
+  color: black;
 }

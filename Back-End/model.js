@@ -13,16 +13,19 @@ const incidentSchema = new mongoose.Schema({
     city: String,
     state: String,
     address: String,
-    description: String,
-    robberyType: String,
-    amountStolen: Number,
-    securityMeasures: String,
   },
+  description: String,
+  robberyType: String,
+  amountStolen: Number,
+  securityMeasures: String,
   suspectInformation: {
-    securityCameraFootage: Boolean,
-    name: String,
-    email: String,
+    numberOfSuspects:Number,
+    descriptions:Array,
+    weaponsUsed:String
   },
+  securityCameraFootage: Boolean,
+  Name: String,
+  email: String,
 });
 const Data = mongoose.model('Datas', incidentSchema);
 const User = mongoose.model("User", userSchema);
