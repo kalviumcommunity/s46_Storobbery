@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const incidentSchema = new mongoose.Schema({
-  incidentID: Number,
+  incidentID: { type: Number, unique: true },
   dateTime: Date,
   location: {
     city: String,
