@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route ,Link} from 'react-router-dom';
 import './App.css';
 import IncidentForm from './IncidentForm';
 import Component from './Component';
+import Update from './Update';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         </Link>
         </nav>
         <Routes>
-          <Route path="/" element={<Component />} />
+          <Route path="/" element={<Component />} /> 
+          <Route path="/update/:id" element={<Update />} />
           <Route path="/form" element={<IncidentForm />} />
         </Routes>
       </div>
