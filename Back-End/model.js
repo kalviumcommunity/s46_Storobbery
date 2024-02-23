@@ -23,7 +23,7 @@ const incidentSchema = new mongoose.Schema({
     descriptions:Array,
     weaponsUsed:String
   },
-  securityCameraFootage: Boolean,
+   youtubeLink: String,
   Name: String,
   email: String,
 });

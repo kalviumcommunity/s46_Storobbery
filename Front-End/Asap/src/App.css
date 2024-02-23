@@ -1,24 +1,88 @@
-body{
- background-color: #24a145;
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+
+* {
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#main{
-  background: white;
-  opacity: 65%;
-  width: 700px;
-  border-radius: 0px 5px 5px 10px;
-  box-shadow: 5px 10px 10px 2px;
-  display: flex;
-  justify-content: center;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+body {
+  background-color: #24a145;
 }
 
-#top{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 95vh;
-}
-#component-main{
+#component-main {
   color: black;
+}
+
+#main-nav {
+  background-color: white;
+  height: 70px;
+  display: flex;
+  align-items: center;
+    font-family: "Protest Riot", sans-serif;
+  justify-content: space-between; /* Add space between items */
+  padding: 0 20px; /* Add padding for better spacing */
+}
+
+#logo-text {
+  display: flex;
+  align-items: center;
+}
+
+#web-name {
+  margin-left: 10px; /* Add margin for spacing */
+  font-size: 24px; /* Adjust font size */
+}
+
+
+/* General styles */
+body {
+  /* font-family: Arial, sans-serif; */
+  margin: 0;
+  padding: 0;
+  background-color: #98e09b;
+}
+
+.App {
+  text-align: center;
+}
+
+/* Navigation bar styles */
+#main-nav {
+  background-color: #ffffff;
+  color: rgb(27, 26, 26);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 70px;
+}
+
+#logo-text {
+  display: flex;
+  align-items: center;
+}
+#logo{
+  height: 100px;
+}
+#web-name {
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+
+#nav-btns button {
+  margin-left: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#nav-btns button:hover {
+  background-color: #45a049;
 }
