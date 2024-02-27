@@ -87,9 +87,6 @@ function Component() {
               <div>
                 descriptions about the robbery
                 <br />
-                {incident.suspectInformation.descriptions.map((i, idx) => (
-                  <p key={idx}>{i}</p>
-                ))}
               </div>
               <div>
                 <button onClick={() => playVideo(incident._id)}>Play</button>
