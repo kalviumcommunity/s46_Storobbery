@@ -36,9 +36,9 @@ app.use(express.json());
 app.use("/", router);
 
 app.get("/", (req, res) => {  
-  // res.json({message: 'MongoDB',
-  // database: isConnected() ? 'connected' : 'disconnected'});
-  res.json({ hello: "hello" });
+  res.json({message: 'MongoDB',
+  database: isConnected() ? 'connected' : 'disconnected'});
+  // res.json({ hello: "hello" });
 });
 
 

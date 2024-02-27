@@ -7,26 +7,23 @@ const userSchema = new mongoose.Schema({
 });
 
 const incidentSchema = new mongoose.Schema({
-  incidentID: { type: Number, unique: true },
   dateTime: Date,
   location: {
     city: String,
     state: String,
     address: String,
   },
+  suspectInformation: {
+    numberOfSuspects: Number,
+    weaponsUsed: String,
+  },
+  amountStolen: Number,
   description: String,
   robberyType: String,
-  amountStolen: Number,
   securityMeasures: String,
-  suspectInformation: {
-    numberOfSuspects:Number,
-    descriptions:Array,
-    weaponsUsed:String
-  },
-   youtubeLink: String,
-  Name: String,
-  email: String,
+  youtubeLink: String,
+  username: String,
 });
-const Data = mongoose.model('Datas', incidentSchema);
+const Data = mongoose.model("Datas", incidentSchema);
 const User = mongoose.model("User", userSchema);
-module.exports = {User,Data};
+module.exports = { User, Data };
