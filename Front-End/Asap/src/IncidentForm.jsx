@@ -3,25 +3,22 @@ import axios from 'axios'
 
 const IncidentForm = () => {
   const [formData, setFormData] = useState({
-    incidentID: '',
     dateTime: '',
     location: {
       city: '',
       state: '',
       address: '',
     },
-    description: '',
-    robberyType: '',
-    amountStolen: '',
-    securityMeasures: '',
     suspectInformation: {
       numberOfSuspects: '',
-      descriptions: [],
       weaponsUsed: '',
     },
-    securityCameraFootage: false,
-    name: '',
-    email: '',
+    amountStolen: '',
+    description: '',
+    robberyType: '',
+    securityMeasures: '',
+     youtubeLink:'',
+    username: '',
   });
 
   const handleChange = (e) => {
@@ -47,7 +44,7 @@ const IncidentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://storoberry.onrender.com/info",formData)
+    axios.post("http://localhost:5000/upload",formData)
     .catch (err=>{
       console.log(err.message)
     })
@@ -59,8 +56,8 @@ const IncidentForm = () => {
       <h2>Incident Form</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Incident ID:
-          <input type="number" name="incidentID" value={formData.incidentID} onChange={handleChange} />
+          Username
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
         </label>
         <label>
           Date Time:
@@ -99,26 +96,14 @@ const IncidentForm = () => {
           <input type="number" name="suspectInformation.numberOfSuspects" value={formData.suspectInformation.numberOfSuspects} onChange={handleChange} />
         </label>
         <label>
-          Descriptions:
-          <input type="text" name="suspectInformation.descriptions" value={formData.suspectInformation.descriptions} onChange={handleChange} />
-        </label>
-        <label>
           Weapons Used:
           <input type="text" name="suspectInformation.weaponsUsed" value={formData.suspectInformation.weaponsUsed} onChange={handleChange} />
         </label>
         <label>
-          Security Camera Footage:
-          <input type="checkbox" name="securityCameraFootage" checked={formData.securityCameraFootage} onChange={() => setFormData(prevState => ({ ...prevState, securityCameraFootage: !prevState.securityCameraFootage }))} />
+      youtubeLink
+          <input type="text" name="youtubeLink"  value={formData.youtubeLink} onChange={handleChange} />
         </label>
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-        </label>
-        <button type="submit">Submit</button>
+        <button type="submit">HI</button>
       </form>
     </div>
   );

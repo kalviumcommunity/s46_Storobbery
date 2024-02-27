@@ -3,6 +3,8 @@ import "./Component.css";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Load from "./assets/robber.gif";
+import ReactPlayer from 'react-player/youtube'
+
 
 function Component() {
   const [incidents, setIncidents] = useState([]);
@@ -16,7 +18,6 @@ function Component() {
   useEffect(() => {
     document.body.style.backgroundColor = loading ? "#7ecdc2" : "#98e09b";
   }, [loading]);
-
   const fetchIncidents = () => {
     setLoading(true);
     fetch("https://storoberry.onrender.com/api/incidents")
@@ -27,7 +28,8 @@ function Component() {
         return response.json();
       })
       .then((data) => {
-        setIncidents(data);
+        console.log("Incidents Data:", data); // Log the data received from the API
+        setIncidents(data); // Assuming the API directly returns the array of incidents
         setLoading(false);
       })
       .catch((error) => console.error("Error:", error));
@@ -45,23 +47,24 @@ function Component() {
     }
   };
 
-  const getEmbeddedLink = (youtubeLink) => {
-    const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-    if (youtubeRegex.test(youtubeLink)) {
-      return youtubeLink.replace(
-        /^(https?\:\/\/)?(www\.)?(youtube\.com\/(watch\?v=)?|youtu\.be\/)/,
-        "https://www.youtube.com/embed/"
-      );
-    } else {
-      return null;
-    }
-  };
+  // const getEmbeddedLink = (youtubeLink) => {
+  //   const youtubeRegex =
+  //     /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+  //   if (youtubeRegex.test(youtubeLink)) {
+  //     return youtubeLink.replace(
+  //       /^(https?\:\/\/)?(www\.)?(youtube\.com\/(watch\?v=)?|youtu\.be\/)/,
+  //       "https://www.youtube.com/embed/"
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
 
   const playVideo = (incidentId) => {
     console.log("Selected Incident ID:", incidentId);
     setSelectedVideo(incidentId);
   };
-  
+
   return (
     <div id="component-main">
       <h1 style={{ fontFamily: "Amatic SC, sans-serif" }}>Incidents</h1>
@@ -74,7 +77,7 @@ function Component() {
         <>
           {incidents.map((incident, index) => (
             <div key={index} className="incident">
-              <p>Incident ID: {incident.incidentID}</p>
+              <p>Username: {incident.username}</p>
               <p>Date Time: {incident.dateTime}</p>
               <p>
                 Location: {incident.location.city}, {incident.location.state}
@@ -102,20 +105,12 @@ function Component() {
               </div>
               <br />
               <div id="youtube-div">
-                
-              {selectedVideo === incident._id && (
-                <iframe
-                  id="youtube"
-                  width="600"
-                  height="400"
-                  src={getEmbeddedLink(incident.youtubeLink)}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              )}
-              
+                {selectedVideo === incident.incidentID && (
+          
+                   
+                   // Only loads the YouTube player
+                   <ReactPlayer url={incident.youtubeLink} />
+                 )} 
               </div>
             </div>
           ))}

@@ -5,25 +5,23 @@ import axios from 'axios';
 const Update = () => {
   const { id } = useParams(); // Get id from URL params
   const [formData, setFormData] = useState({
-    incidentID: '',
     dateTime: '',
     location: {
       city: '',
       state: '',
       address: '',
     },
-    description: '',
-    robberyType: '',
-    amountStolen: '',
-    securityMeasures: '',
     suspectInformation: {
       numberOfSuspects: '',
       descriptions: [],
       weaponsUsed: '',
     },
-    securityCameraFootage: false,
-    name: '',
-    email: '',
+    amountStolen: '',
+    description: '',
+    robberyType: '',
+    securityMeasures: '',
+    youtubeLink:"",
+    username: ''
   });
 
   const handleChange = (e) => {
@@ -50,7 +48,7 @@ const Update = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`https://storoberry.onrender.com/d-update/${id}`, formData); 
+      const response = await axios.put(`http://localhost:5000/d-update/${id}`, formData); 
       console.log(response.data);
     } catch (err) {
       console.log(err.message);
@@ -60,11 +58,11 @@ const Update = () => {
 // console.log(incidentID)
   return (
     <div>
-      <h2>Incident Form</h2>
+      <h2>Update Form</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Incident ID:
-          <input type="number" name="incidentID" value={formData.incidentID} onChange={handleChange} />
+          Username
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
         </label>
         <label>
           Date Time:
@@ -102,25 +100,9 @@ const Update = () => {
           Number of Suspects:
           <input type="number" name="suspectInformation.numberOfSuspects" value={formData.suspectInformation.numberOfSuspects} onChange={handleChange} />
         </label>
-        <label>
-          Descriptions:
-          <input type="text" name="suspectInformation.descriptions" value={formData.suspectInformation.descriptions} onChange={handleChange} />
-        </label>
         <label> 
           Weapons Used:
           <input type="text" name="suspectInformation.weaponsUsed" value={formData.suspectInformation.weaponsUsed} onChange={handleChange} />
-        </label>
-        <label>
-          Security Camera Footage:
-          <input type="checkbox" name="securityCameraFootage" checked={formData.securityCameraFootage} onChange={() => setFormData(prevState => ({ ...prevState, securityCameraFootage: !prevState.securityCameraFootage }))} />
-        </label>
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
         </label>
         <button type="submit">Submit</button>
       </form>
