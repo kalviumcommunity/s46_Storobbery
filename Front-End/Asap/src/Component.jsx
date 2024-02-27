@@ -75,7 +75,7 @@ function Component() {
         </div>
       ) : (
         <>
-          {incidents.map((incident, index) => (
+          {incidents && incidents.map((incident, index) => (
             <div key={index} className="incident">
               <p>Username: {incident.username}</p>
               <p>Date Time: {incident.dateTime}</p>
