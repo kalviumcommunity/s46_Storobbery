@@ -1,8 +1,10 @@
-// LoginPage.js
-import React, { useState } from 'react';
+import { useState,React, CSSProperties } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import axios from 'axios';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import "./Login.css";
 
 function LoginPage({ setLogin }) {
   const [formData, setFormData] = useState({
@@ -41,23 +43,26 @@ function LoginPage({ setLogin }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      <form onSubmit={handleSubmit}>
+    <div id="login-main">
+
+    <div className="background">
+      <div className="shape"></div>
+      <form className="form" onSubmit={handleSubmit}>
+        <h3>Login Here</h3>
+        {error && <div className="error-message">{error}</div>}
         <div>
-          <label>Username:</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          <label htmlFor="username">Username:</label>
+          <input className='login-inp' type="text" name="username" value={formData.username} onChange={handleChange} />
         </div>
         <div>
-          <label>Password:</label>
-          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+          <label htmlFor="password">Password:</label>
+          <input className='login-inp' type="password" name="password" value={formData.password} onChange={handleChange} />
         </div>
-        <button type="submit" disabled={loading}>Login</button>
+        <button type="submit" id='submit-btn-login'  disabled={loading}>Login</button>
+      <Link to='/signup'><p className="signup-link">Signup</p></Link>
       </form>
-    <Link to='/signup'><p>signup</p></Link>
     </div>
-    
+    </div>
   );
 }
 

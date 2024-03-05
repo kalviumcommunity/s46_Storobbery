@@ -16,7 +16,7 @@ function App() {
       <div className="App">
         <nav id="main-nav">
           <div id="logo-text">
-            <img id="logo" src={logo} alt="Logo" />
+            {/* <img id="logo" src={logo} alt="Logo" /> */}
             <p id="web-name">Storyberry</p>
           </div>
           <div id="nav-btns">

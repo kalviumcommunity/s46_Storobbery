@@ -10,14 +10,17 @@ const app = express();
 app.use(express.json());
 
 
-//get user
-// const createToken = (payload) => {
-//   return jwt.sign(
-//     payload,
-//     "uzumzki-naruto-pokemon-ashketchum-chotabheem-motupatlu-jackiechan",
-//     { expiresIn: "5m" }
-//   );
-// };
+
+const createToken = (payload) => {
+  return jwt.sign(
+    payload,
+    "uzumzki-naruto-pokemon-ashketchum-chotabheem-motupatlu-jackiechan",
+    { expiresIn: "5m" }
+  );
+};
+// res.cookie("createToken" ,createToken,{
+//   httpOnly:true
+// })
 
 router.get("/read", async (req, res) => {
   try {

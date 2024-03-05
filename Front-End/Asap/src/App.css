@@ -2,11 +2,12 @@
 
 * {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: #24a145;
+  background-color: #010113;
 }
 
 #component-main {
@@ -18,9 +19,8 @@ body {
   height: 70px;
   display: flex;
   align-items: center;
-    font-family: "Protest Riot", sans-serif;
+    font-family: "Protest Riot", sans-serif; 
   justify-content: space-between; /* Add space between items */
-  padding: 0 20px; /* Add padding for better spacing */
 }
 
 #logo-text {
@@ -34,31 +34,35 @@ body {
 }
 
 
-/* General styles */
-body {
-  /* font-family: Arial, sans-serif; */
-  margin: 0;
-  padding: 0;
-  background-color: #98e09b;
-}
 
 .App {
   text-align: center;
+  display: flex;
+  background-color: #010113;
+  z-index: 0;
+  /* background: linear-gradient(to right, #000229, #000112); */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center
 }
 
 /* Navigation bar styles */
 #main-nav {
-  background-color: #ffffff;
-  color: rgb(27, 26, 26);
+  background-color: #010113;
+  /* background: linear-gradient(to top, #0a101f, #000112); */
+  color: rgb(0, 0, 0);
   display: flex;
+  /* border-bottom: solid 3px white; */
   justify-content: space-between;
+  /* margin: 2px; */
   align-items: center;
-  padding: 10px 20px;
+  width: 100%;
   height: 70px;
 }
 
 #logo-text {
   display: flex;
+  position: relative;
   align-items: center;
 }
 #logo{
@@ -67,11 +71,15 @@ body {
 #web-name {
   font-size: 1.5rem;
   margin-left: 10px;
+  color: white;
+  /* position: absolute;
+  left: 70%;
+  top: 55%; */
 }
 
 #nav-btns button {
   margin-left: 10px;
-  background-color: #4caf50;
+  background-color: #181818;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -80,9 +88,15 @@ body {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  box-shadow: 2px 2px 1px 0px;
   border-radius: 5px;
 }
-
-#nav-btns button:hover {
-  background-color: #45a049;
+#nav-btns{
+  padding-right: 10px;
 }
+#nav-btns button:hover {
+  background-color: #ffffff;
+  color: black;
+}
+
+
