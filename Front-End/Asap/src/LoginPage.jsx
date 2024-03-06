@@ -1,5 +1,9 @@
 import { useState,React, CSSProperties } from "react";
+<<<<<<< HEAD
 // import ClipLoader from "react-spinners/ClipLoader";   
+=======
+// import ClipLoader from "react-spinners/ClipLoader";
+>>>>>>> 0956cf097b3d82b6a961baded7963c55c4fa5e06
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
