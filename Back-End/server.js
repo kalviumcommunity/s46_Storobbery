@@ -1,36 +1,60 @@
 const express = require("express");
+const router = require("./route");
 const mongoose = require("mongoose");
 const cors = require('cors');
 require("dotenv").config();
-const { User, Data } = require('./model');
-const path = require('path'); // Import path module
-const router = require("./route");
+const {User,Data} = require('./model')
 
 const app = express();
-const port = process.env.PORT || 5000; // Use process.env.PORT for Heroku or default to 5000
+const port = 5000;
 
-// Middleware
-app.use(cors());
+const startDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.mongoURI);
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1);
+  }
+};
+
+startDatabase();
+
+const isConnected = () => {
+  return mongoose.connection.readyState === 1;
+};
+
+const checkDatabaseConnection = (req, res, next) => {
+  if (!isConnected()) {
+    return res.status(500).json({ message: "Database is not connected" });
+    next();
+  }
+};
+app.use(cors())
 app.use(express.json());
-app.use("/", router); // Your API routes
+// app.use(checkDatabaseConnection);
+app.use("/", router);
 
-// Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
+app.get("/", (req, res) => {  
+  res.json({message: 'MongoDB',
+  database: isConnected() ? 'connected' : 'disconnected'});
+  // res.json({ hello: "hello" });
+});
 
-  // Serve index.html for all other routes
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
 
-// MongoDB connection
-mongoose.connect(process.env.mongoURI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.error("Error connecting to MongoDB:", err));
+app.get('/api/incidents', async (req, res) => {
+  try {
+    const incidents = await Data.find();
+    res.json(incidents);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
-// Start server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
