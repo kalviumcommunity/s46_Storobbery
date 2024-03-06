@@ -44,7 +44,7 @@ const IncidentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5000/upload",formData)
+    axios.post("https://storoberry.onrender.com/upload",formData)
     .catch (err=>{
       console.log(err.message)
     })
