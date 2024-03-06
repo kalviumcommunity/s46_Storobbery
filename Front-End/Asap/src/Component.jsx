@@ -20,7 +20,7 @@ function Component() {
   }, []);
 
   // useEffect(() => {
-  //   document.body.style.backgroundColor = loading ? "#7ecdc2" : "#98e09b";
+  //   document.body.style.backgroundColor = loading ? "#7ecdc2" : "";
   // }, [loading]);
 
   const miniQuotes = [

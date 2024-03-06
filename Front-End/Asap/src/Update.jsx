@@ -87,19 +87,19 @@ const Update = () => {
     name="description"
     value={formData.description}
     onChange={handleChange}
-    style={{
-      minWidth: "400px", // Minimum width
-      maxWidth: "50%", // Maximum width
-      // maxHeight:"600px",
-      maxHeight:"800px",
-      width: "100%", // Initial width
-      resize: "horizontal", // Allow horizontal resizing
-      boxSizing: "border-box", // Include padding and border in the width
-      padding: "10px", // Add padding for better appearance
-      border: "1px solid #ccc", // Add border for visual separation
-      borderRadius: "4px", // Add border radius for rounded corners
-      marginBottom: "10px" // Add margin for spacing
-    }}
+    // style={{
+    //   minWidth: "400px", // Minimum width
+    //   maxWidth: "50%", // Maximum width
+    //   // maxHeight:"600px",
+    //   maxHeight:"800px",
+    //   width: "100%", // Initial width
+    //   resize: "horizontal", // Allow horizontal resizing
+    //   boxSizing: "border-box", // Include padding and border in the width
+    //   padding: "10px", // Add padding for better appearance
+    //   border: "1px solid #ccc", // Add border for visual separation
+    //   borderRadius: "4px", // Add border radius for rounded corners
+    //   marginBottom: "10px" // Add margin for spacing
+    // }}
   />
 </label>
 <label>
@@ -108,17 +108,17 @@ const Update = () => {
     name="securityMeasures"
     value={formData.securityMeasures}
     onChange={handleChange}
-    style={{
-      minWidth: "670px", // Minimum width
-      maxWidth: "100%", // Maximum width
-      width: "100%", // Initial width
-      resize: "horizontal", // Allow horizontal resizing
-      resize:"vertical",
-      boxSizing: "border-box", // Include padding and border in the width
-      padding: "10px", // Add padding for better appearance
-      border: "1px solid #ccc", // Add border for visual separation
-      borderRadius: "4px" // Add border radius for rounded corners
-    }}
+    // style={{
+    //   minWidth: "670px", // Minimum width
+    //   maxWidth: "100%", // Maximum width
+    //   width: "100%", // Initial width
+    //   resize: "horizontal", // Allow horizontal resizing
+    //   resize:"vertical",
+    //   boxSizing: "border-box", // Include padding and border in the width
+    //   padding: "10px", // Add padding for better appearance
+    //   border: "1px solid #ccc", // Add border for visual separation
+    //   borderRadius: "4px" // Add border radius for rounded corners
+    // }}
   />
 </label>
 

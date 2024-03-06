@@ -1,5 +1,4 @@
 import { useState,React, CSSProperties } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
