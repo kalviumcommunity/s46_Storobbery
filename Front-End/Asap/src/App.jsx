@@ -1,17 +1,30 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import Component from "./Component";
 import LoginPage from "./LoginPage";
 import Signup from "./Signup";
 import Cookies from 'js-cookie'; 
+import IncidentForm from "./IncidentForm";
+import Update from "./Update";
 
 function App() {
   const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  }, []);
 
   const handleLogout = () => {
-    Cookies.remove("Username");
+    Cookies.remove("token");
     setLogin(false); 
+    navigate('/home'); // Redirect to home page after logout
   };
 
   return (
@@ -31,12 +44,17 @@ function App() {
               <button>Login</button>
             </Link>
           )}
+          <Link to="/post">
+            <button>Add Data</button>
+          </Link>
         </div>
       </nav>
       <Routes>
-        <Route path="/home" element={<Component />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path="/home" element={<Component login={login} />} />
+        <Route path="/post" element={<IncidentForm />} />
+        <Route path="/signup" element={<Signup />} />
         {!login && <Route path="/login" element={<LoginPage setLogin={setLogin} />} />}
+        <Route path="/update/:id" element={<Update />} />
       </Routes>
     </div>
   );

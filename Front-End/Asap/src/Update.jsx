@@ -49,7 +49,7 @@ const Update = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`https://storoberry.onrender.com/d-update/${id}`, formData); 
+      const response = await axios.put(`http://localhost:4000/d-update/${id}`, formData); 
       console.log(response.data);
     } catch (err) {
       console.log(err.message);

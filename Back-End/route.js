@@ -2,25 +2,34 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 const { authSchema, signupSchema } = require("./validate");
 const { User, Data } = require("./model");
-// const express = require('express');
 const app = express();
 app.use(express.json());
 
+// middleware/authenticate.js
 
+const authenticate = (req, res, next) => {
+  const token = req.headers.authorization;
 
-const createToken = (payload) => {
-  return jwt.sign(
-    payload,
-    "uzumzki-naruto-pokemon-ashketchum-chotabheem-motupatlu-jackiechan",
-    { expiresIn: "5m" }
-  );
+  // Check if token is present or not
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Access denied. Token is missing." });
+  }
+
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Store decoded user information in the request object
+    next(); // Proceed to the next middleware
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token." });
+  }
 };
-// res.cookie("createToken" ,createToken,{
-//   httpOnly:true
-// })
 
 router.get("/read", async (req, res) => {
   try {
@@ -31,7 +40,7 @@ router.get("/read", async (req, res) => {
   }
 });
 //get data
-router.get("/data", async (req, res) => {
+router.get("/data", authenticate, async (req, res) => {
   try {
     const datas = await Data.find();
     res.json(datas);
@@ -40,9 +49,19 @@ router.get("/data", async (req, res) => {
   }
 });
 
-router.post("/upload", async (req, res) => {
+router.post("/upload",authenticate, async (req, res) => {
   try {
-    const { dateTime, location, description, robberyType, amountStolen, securityMeasures, suspectInformation, youtubeLink, username } = req.body;
+    const {
+      dateTime,
+      location,
+      description,
+      robberyType,
+      amountStolen,
+      securityMeasures,
+      suspectInformation,
+      youtubeLink,
+      username,
+    } = req.body;
     const newData = new Data({
       dateTime,
       location,
@@ -57,11 +76,10 @@ router.post("/upload", async (req, res) => {
     const savedData = await newData.save();
     res.status(201).json(savedData);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return res.status(500).json({ message: err.message });
   }
 });
-
 
 //post user
 router.post("/user", async (req, res) => {
@@ -138,14 +156,38 @@ router.put("/update/:id", async (req, res) => {
 //edit data
 router.put("/d-update/:id", async (req, res) => {
   try {
-    const user = await Data.findByIdAndUpdate(req.params.id, req.body, {
+    const {
+      dateTime,
+      location,
+      description,
+      robberyType,
+      amountStolen,
+      securityMeasures,
+      suspectInformation,
+      youtubeLink,
+      username,
+    } = req.body;
+    const newData = {
+      dateTime,
+      location,
+      description,
+      robberyType,
+      amountStolen,
+      securityMeasures,
+      suspectInformation,
+      youtubeLink,
+      username,
+    };
+
+    const updatedData = await Data.findByIdAndUpdate(req.params.id, newData, {
       new: true,
     });
-    console.log(user);
-    if (user == null) {
-      return res.status(404).json({ message: "User not found" });
+
+    if (!updatedData) {
+      return res.status(404).json({ message: "Data not found" });
     }
-    res.json({ message: "Item updated successfully" });
+
+    res.json({ message: "Data updated successfully", updatedData });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -153,14 +195,23 @@ router.put("/d-update/:id", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
+    console.log("hi");
     const { user_id, password } = req.body;
     const result = await authSchema.validateAsync(req.body);
     console.log(result);
-    const doesExist = await User.findOne({ user_id: user_id });
-    if (doesExist.password != password) {
-      return res.status(401).json({ message: "invalid Password" });
+    const user = await User.findOne({ user_id: user_id });
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
     }
-    res.status(200).json({ message: "Login Successful" });
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+    // Generate token
+    const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    console.log(token);
+    res.status(200).json({ message: "Login Successful", token: token });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
