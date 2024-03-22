@@ -7,21 +7,19 @@ import rob from "./assets/asap-img.png";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FaCirclePlay } from "react-icons/fa6";
 import ReactPlayer from "react-player";
+import Cookies from "js-cookie";
 
-
-
-function Component() {
+function Component({ login }) {
   const [incidents, setIncidents] = useState([]);
+  const [user,setUser]=useState([])
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const userId = Cookies.get("id");
+  const [selectedUser, setSelectedUser] = useState("All");
 
   useEffect(() => {
     fetchIncidents();
-  }, []);
-
-  // useEffect(() => {
-  //   document.body.style.backgroundColor = loading ? "#7ecdc2" : "";
-  // }, [loading]);
+  }, [login]);
 
   const miniQuotes = [
     "Stealing hurts, kindness heals.",
@@ -45,15 +43,29 @@ function Component() {
     "End robbery, begin healing.",
     "Theft destroys communities, honesty rebuilds them."
   ];
-const randomNumber = Math.floor(Math.random()*miniQuotes.length)
+  const randomNumber = Math.floor(Math.random() * miniQuotes.length);
+
+  useEffect(() => {
+    axios.get("https://storoberry.onrender.com/read")
+      .then((response) => {
+        console.log(response);
+        setUser(response.data);
+      })
+      .catch((error) => console.error("Error:", error))
+  }, []);
+
   const fetchIncidents = () => {
     setLoading(true);
-    fetch("https://storoberry.onrender.com/api/incidents")
+    axios
+      .get("https://storoberry.onrender.com/data", {
+        headers: { Authorization: Cookies.get("token") }
+      })
       .then((response) => {
-        if (!response.ok) {
+        if (response.status === 200) {
+          return response.data;
+        } else {alert("login ")
           throw new Error("Network response was not ok");
         }
-        return response.json();
       })
       .then((data) => {
         console.log("Incidents Data:", data);
@@ -77,80 +89,95 @@ const randomNumber = Math.floor(Math.random()*miniQuotes.length)
 
   const playVideo = (incidentId) => {
     console.log("Selected Incident ID:", incidentId);
-    setSelectedVideo(incidentId);ṭ
+    setSelectedVideo(incidentId);
   };
 
   return (
     <>
+      <select value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
+        <option value="All">All</option>
+        {user.map((user) => (
+          <option key={user._id}>{user.user_id}</option>
+        ))}
+      </select>
       <div id="top-div">
-        <img id="img-rob" src={rob}></img>
-        <div id="summary-div">Explore Robbery Incidents:
-
-Browse recent robbery incidents categorized by location, type, and severity.
-Gain insights into trends and patterns through interactive data visualizations.
-Report an Incident
-</div>
-<div id="quote"><blockquote>{miniQuotes[randomNumber]}</blockquote></div>
+        <img id="img-rob" src={rob} alt="rob"></img>
+        <div id="summary-div">
+          Explore Robbery Incidents:
+          <br />
+          Browse recent robbery incidents categorized by location, type, and
+          severity. Gain insights into trends and patterns through interactive
+          data visualizations. Report an Incident
+        </div>
+        <div id="quote">
+          <blockquote>{miniQuotes[randomNumber]}</blockquote>
+        </div>
       </div>
       <div id="component-main">
         <h1 style={{ fontFamily: "Amatic SC, sans-serif" }}>Incidents</h1>
         {loading ? (
           <div>
-            <img src={Load} alt="loading" />
-            <p id="load-message">Robbing The Data Please Wait</p>
+            <div className="spinner"></div>
           </div>
         ) : (
-          <>
           <div id="grid-incidents">
-
-            {incidents.map((incident) => (
-              <div key={incident._id} className="incident">
-                <p>Username: {incident.username}</p>
-                <p>Date Time: {incident.dateTime}</p>
-                <p>
-                  Location: {incident.location.city}, {incident.location.state}
-                </p>
-                <p>Description: {incident.description}</p>
-                <p>AmountStolen: {incident.amountStolen}</p>
-                <div>
-                  descriptions about the robbery
-                  <br />
-                </div>
-                <FaCirclePlay size={30} className="play-button" onClick={() => playVideo(incident._id)} fill={"white"} />
-                <div>
-                  <Link to={`/update/${incident._id}`}>
-                    <button className="btn-update">Update</button>
-                  </Link>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(incident._id)}
-                    >
-                    Delete
-                  </button>
-                </div>
-                <br />
-                <div id="yotube-div">
-                  {selectedVideo === incident._id && (
-                    <div id="sub-yt-div">
-                      <ReactPlayer
-                        url={incident.youtubeLink}
-                        width="900px"
-                        height="500px"
-                        controls={true}
-                        
-                        />
-                      <IoMdCloseCircle id="close-btn" onClick={()=>setSelectedVideo(null)} size={30} fill={"red"} />
+            {incidents
+              .filter((incident) => selectedUser === "All" || incident.username === selectedUser)
+              .map((incident) => (
+                <div key={incident._id} className="incident">
+                  <p>Username: {incident.username}</p>
+                  <p>Date Time: {incident.dateTime}</p>
+                  <p>Location: {incident.location.city}, {incident.location.state}</p>
+                  <p>Description: {incident.description}</p>
+                  <p>AmountStolen: {incident.amountStolen}</p>
+                  <div>
+                    descriptions about the robbery
+                    <br />
+                  </div>
+                  <FaCirclePlay
+                    size={30}
+                    className="play-button"
+                    onClick={() => playVideo(incident._id)}
+                    fill={"white"}
+                  />
+                  {incident.username === userId && (
+                    <div>
+                      <Link to={`/update/${incident._id}`}>
+                        <button className="btn-update">Update</button>
+                      </Link>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(incident._id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   )}
+                  <div id="yotube-div">
+                    {selectedVideo === incident._id && (
+                      <div id="sub-yt-div">
+                        <ReactPlayer
+                          url={incident.youtubeLink}
+                          width="900px"
+                          height="500px"
+                          controls={true}
+                        />
+                        <IoMdCloseCircle
+                          id="close-btn"
+                          onClick={() => setSelectedVideo(null)}
+                          size={30}
+                          fill={"red"}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-            </div>
-          </>
+              ))}
+          </div>
         )}
       </div>
     </>
-    );
+  );
 }
 
 export default Component;

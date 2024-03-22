@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import Cookies from 'js-cookie'; 
 
 const IncidentForm = () => {
+  const user=Cookies.get('id')
   const [formData, setFormData] = useState({
     dateTime: '',
     location: {
@@ -18,7 +20,7 @@ const IncidentForm = () => {
     robberyType: '',
     securityMeasures: '',
      youtubeLink:'',
-    username: '',
+    username:user ,
   });
 
   const handleChange = (e) => {
@@ -40,11 +42,12 @@ const IncidentForm = () => {
       }));
     }
   };
+
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://storoberry.onrender.com/upload",formData)
+    axios.post("https://storoberry.onrender.com/upload",formData,{headers:{Authorization:Cookies.get('token')}})
     .catch (err=>{
       console.log(err.message)
     })
@@ -55,10 +58,7 @@ const IncidentForm = () => {
     <div>
       <h2>Incident Form</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
-        </label>
+        <p>{user}</p>
         <label>
           Date Time:
           <input type="datetime-local" name="dateTime" value={formData.dateTime} onChange={handleChange} />

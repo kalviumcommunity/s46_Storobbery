@@ -139,6 +139,7 @@
   }
   .incident{
     position: relative;
+    line-height: 35px;
   }
   .play-button {
     visibility: hidden;
@@ -206,3 +207,56 @@ blockquote:after {
     align-items: center;
   }
   
+
+  .play-button {
+  visibility: hidden;
+  position: absolute;
+  top: 1%;
+  right: 2.5%;
+  transition: visibility 0.3s, opacity 0.3s;
+  opacity: 0; /* Hide the button initially */
+}
+
+.incident:hover .play-button {
+  visibility: visible;
+  opacity: 1; /* Show the button on hover */
+}
+
+.play-button:hover {
+  transform: scale(1.1); /* Increase size on hover */
+}
+.spinner {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  border: 4.5px solid #0000;
+  border-radius: 50%;
+  border-color: #dbdcef #0000;
+  animation: spinner-e04l1k 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2.2px;
+  border: inherit;
+  border-radius: 50%;
+}
+
+.spinner::before {
+  border-color: #ffffff #0000;
+  animation: inherit;
+  animation-duration: 1s;
+  animation-direction:alternate;
+}
+
+.spinner::after {
+  margin: 8.9px;
+}
+
+@keyframes spinner-e04l1k {
+  100% {
+    transform: rotate(1turn);
+  }
+}

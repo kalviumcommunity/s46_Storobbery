@@ -1,8 +1,8 @@
-import { useState, React } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import Cookies from 'js-cookie'; // Change from Cookie to Cookies
+import Cookies from 'js-cookie';
 
 function LoginPage({ setLogin }) {
   const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ function LoginPage({ setLogin }) {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,12 +29,13 @@ function LoginPage({ setLogin }) {
         password: formData.password
       });
       console.log(response.data);
-      Cookies.set('Username', formData.username); // Corrected from user_id
+      Cookies.set('token', response.data.token);
+      Cookies.set('id',formData.username)
       setLogin(true);
-      
+      navigate('/home'); // Redirect to home page after successful login
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
       } else {
         setError('An unexpected error occurred. Please try again later.');
       }

@@ -6,7 +6,7 @@ require("dotenv").config();
 const {User,Data} = require('./model')
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 const startDatabase = async () => {
   try {
