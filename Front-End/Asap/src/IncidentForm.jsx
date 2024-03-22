@@ -47,7 +47,7 @@ const IncidentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/upload",formData,{headers:{Authorization:Cookies.get('token')}})
+    axios.post("https://storoberry.onrender.com/upload",formData,{headers:{Authorization:Cookies.get('token')}})
     .catch (err=>{
       console.log(err.message)
     })

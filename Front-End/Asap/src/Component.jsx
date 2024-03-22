@@ -46,7 +46,7 @@ function Component({ login }) {
   const randomNumber = Math.floor(Math.random() * miniQuotes.length);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/read")
+    axios.get("https://storoberry.onrender.com/read")
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -57,13 +57,13 @@ function Component({ login }) {
   const fetchIncidents = () => {
     setLoading(true);
     axios
-      .get("http://localhost:4000/data", {
+      .get("https://storoberry.onrender.com/data", {
         headers: { Authorization: Cookies.get("token") }
       })
       .then((response) => {
         if (response.status === 200) {
           return response.data;
-        } else {
+        } else {alert("login ")
           throw new Error("Network response was not ok");
         }
       })

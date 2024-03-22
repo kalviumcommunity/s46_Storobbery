@@ -24,7 +24,7 @@ function LoginPage({ setLogin }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:4000/login', {
+      const response = await axios.post('https://storoberry.onrender.com/login', {
         user_id: formData.username,
         password: formData.password
       });
