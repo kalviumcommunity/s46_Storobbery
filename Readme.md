@@ -16,4 +16,4 @@ https://storoberry.onrender.com
 
 ## Deployed link Front-end
 
-https://stroberry-fe.onrender.com
+[Click here](https://storyberry.onrender.com/home)
