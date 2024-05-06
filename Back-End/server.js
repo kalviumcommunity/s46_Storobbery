@@ -1,4 +1,3 @@
-
 const router = require("./route");
 const mongoose = require("mongoose");
 const cors = require('cors');
@@ -51,9 +50,6 @@ app.get('/api/incidents', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 
 
