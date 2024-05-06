@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 require("dotenv").config();
 const {User,Data} = require('./model')
+const express = require("express")
+const app = express()
+const port = 4000;
 
-const port = 7000;
 
 const startDatabase = async () => {
   try {
@@ -40,6 +42,9 @@ app.get("/", (req, res) => {
   // res.json({ hello: "hello" });
 });
 
+app.get("/ping", (req, res) => {
+  res.send("Welcome to asap project")
+})
 
 app.get('/api/incidents', async (req, res) => {
   try {
@@ -51,9 +56,9 @@ app.get('/api/incidents', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
+app.listen(port,()=>{
+  console.log(`Server is running on port ${port}.. `)
+})
 
 
