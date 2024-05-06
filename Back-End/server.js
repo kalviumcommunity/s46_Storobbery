@@ -1,11 +1,10 @@
-const express = require("express");
+
 const router = require("./route");
 const mongoose = require("mongoose");
 const cors = require('cors');
 require("dotenv").config();
 const {User,Data} = require('./model')
 
-const app = express();
 const port = 7000;
 
 const startDatabase = async () => {

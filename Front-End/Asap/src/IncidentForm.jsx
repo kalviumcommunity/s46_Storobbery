@@ -54,6 +54,15 @@ const IncidentForm = () => {
     console.log(formData);
   };
 // console.log(incidentID)
+const hi =()=>{
+  try{
+    console.log(10*0)
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+hi()
   return (
     <div>
       <h2>Incident Form</h2>

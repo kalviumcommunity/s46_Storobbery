@@ -21,29 +21,7 @@ function Component({ login }) {
     fetchIncidents();
   }, [login]);
 
-  const miniQuotes = [
-    "Stealing hurts, kindness heals.",
-    "End theft, build trust.",
-    "Stop theft, spread love.",
-    "Robbery steals, unity heals.",
-    "No to theft, yes to peace.",
-    "Thieves harm, honesty protects.",
-    "Theft divides, honesty unites.",
-    "Say no to stealing.",
-    "Robbery destroys, honesty strengthens.",
-    "Choose honesty, reject theft.",
-    "Stop stealing, start caring.",
-    "Thieves damage, honesty mends.",
-    "Stealing hurts us all.",
-    "Theft damages, trust rebuilds.",
-    "Say yes to integrity.",
-    "No room for robbery.",
-    "Reject theft, embrace integrity.",
-    "Honesty wins, theft loses.",
-    "End robbery, begin healing.",
-    "Theft destroys communities, honesty rebuilds them."
-  ];
-  const randomNumber = Math.floor(Math.random() * miniQuotes.length);
+ 
 
   useEffect(() => {
     axios.get("https://storoberry.onrender.com/read")
@@ -96,23 +74,15 @@ function Component({ login }) {
     <>
       <select value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
         <option value="All">All</option>
-        {user.map((user) => (
-          <option key={user._id}>{user.user_id}</option>
-        ))}
+        {user
+  .slice() // Create a shallow copy of the array to avoid mutating the original array
+  .sort((a, b) => a.user_id.localeCompare(b.user_id)) // Sort the array alphabetically based on user_id
+  .map((user) => (
+    <option key={user._id}>{user.user_id}</option>
+  ))}
+
       </select>
-      <div id="top-div">
-        <img id="img-rob" src={rob} alt="rob"></img>
-        <div id="summary-div">
-          Explore Robbery Incidents:
-          <br />
-          Browse recent robbery incidents categorized by location, type, and
-          severity. Gain insights into trends and patterns through interactive
-          data visualizations. Report an Incident
-        </div>
-        <div id="quote">
-          <blockquote>{miniQuotes[randomNumber]}</blockquote>
-        </div>
-      </div>
+  
       <div id="component-main">
         <h1 style={{ fontFamily: "Amatic SC, sans-serif" }}>Incidents</h1>
         {loading ? (
