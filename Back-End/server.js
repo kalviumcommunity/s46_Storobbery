@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 require("dotenv").config();
 const {User,Data} = require('./model')
+const express = require("express")
+const app = express()
 
 const port = 7000;
 
@@ -39,7 +41,6 @@ app.get("/", (req, res) => {
   // res.json({ hello: "hello" });
 });
 
-
 app.get('/api/incidents', async (req, res) => {
   try {
     const incidents = await Data.find();
@@ -50,6 +51,8 @@ app.get('/api/incidents', async (req, res) => {
   }
 });
 
-
+app.listen(7000, () => {
+  console.log("Server is running on port 7000");
+});
 
 
