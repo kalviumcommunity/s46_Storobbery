@@ -13,3 +13,4 @@ This is a website which has as stories of robbery incidents and users can read i
 ## Deployed link
 
 
+https://storoberry.onrender.com
